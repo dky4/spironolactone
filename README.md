@@ -2,6 +2,9 @@
 This is a tool meant for booting dualboots, ssh ramdisks, and tether downgrades for now.
 
 Expansion in functionality (i.e. installing dualboots, jailbreaks, downgrades, etc) willl come at a later date. 
+
+We also have a discord server at https://discord.gg/tXBqy3FRUP for updates and discussion
+I will annunce updates over at https://x.com/_orangera1n 
 # Important information
 1. This tool is in VERY early stages of development, meaning that various functionailites might not be implemented or are otherwise buggy.
 2. By using this tool, you will almost certainly wiping the device, back up any data beforehand.
