@@ -24,7 +24,7 @@ Do *not* ask for an ETA for new features or version support
 0. Get the key json file: Head to https://theapplewiki.com/wiki/Firmware and head to your iOS version page for your device type (iPhone or iPad), then head to the specific device section (i.e. iPhone XR or iPad Air (3rd generation)), and then find your iOS version you want to make a ramdisk of, then click on the "iDeviceX,X" page, then download the keys json.
 1. run `https://github.com/Orangera1n/spironolactone.git` and `cd spironolactone`
 2. To make a ramdisk, run ./makerd.sh (iOS version here) (location of firmware key json here)
-4. To boot a ramdisk, 
+4. To boot a ramdisk, run the command that ./makerd.sh outputs at the end
 # Credits
 - [libimobiledevice](https://github.com/libimobiledevice/libimobiledevice) for libirecovery and other tools
 - [Nathan](https://github.com/verygenericname) for [sshtars](https://github.com/verygenericname/sshtars/) and [SSHRD_Script](https://github.com/verygenericname/), which is going to be helpful for understanding how this works
