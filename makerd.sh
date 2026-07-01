@@ -1,8 +1,8 @@
 #export ipswurl="$1"
 oscheck=$(uname)
-BUILD=Spironolactone-9
+BUILD=Spironolactone-10.1
 BRANCH=$(git branch --show-current)
-echo "Welcome to Spironolactone v0.1.0 (Build: "$BUILD-$BRANCH")!"
+echo "Welcome to Spironolactone v0.1.1 (Build: "$BUILD-$BRANCH")!"
 #export keypagename="$2"
 #export keypage="https://theapplewiki.com/api.php?action=parse&formatversion=2&page="$keypagename"&prop=wikitext&format=json"
 #echo $keypage
@@ -43,9 +43,12 @@ elif [[ "$aopfilenametest" == *12* && "$cpid" == "0x8020" ]]; then
 else
 :
 fi
-echo "$bmindex"
-../"$oscheck"/pzb -g "$(awk "/""${replace}""/{x=1}x&&/iBSS[.]/{print;exit}" BuildManifest.plist | grep '<string>' |cut -d\> -f2 |cut -d\< -f1)" "$ipswurl"
-../"$oscheck"/pzb -g "$(awk "/""${replace}""/{x=1}x&&/iBEC[.]/{print;exit}" BuildManifest.plist | grep '<string>' |cut -d\> -f2 |cut -d\< -f1)" "$ipswurl"
+#echo "$bmindex"
+if [[ "$boardconfig" == n104ap ]]; then
+    ../"$oscheck"/pzb -g Firmware/dfu/iBEC.n104.RELEASE.im4p "$ipswurl"
+else
+    ../"$oscheck"/pzb -g "$(awk "/""${replace}""/{x=1}x&&/iBEC[.]/{print;exit}" BuildManifest.plist | grep '<string>' |cut -d\> -f2 |cut -d\< -f1)" "$ipswurl"
+fi
 ../"$oscheck"/pzb -g "$(awk "/""${replace}""/{x=1}x&&/DeviceTree[.]/{print;exit}" BuildManifest.plist | grep '<string>' |cut -d\> -f2 |cut -d\< -f1)" "$ipswurl"
 ../"$oscheck"/pzb -g "$(/usr/bin/plutil -extract "BuildIdentities".$bmindex."Manifest"."AOP"."Info"."Path" xml1 -o - BuildManifest.plist | grep '<string>' |cut -d\> -f2 |cut -d\< -f1 | head -1)" "$ipswurl"
 ../"$oscheck"/pzb -g "$(/usr/bin/plutil -extract "BuildIdentities".$bmindex."Manifest"."ANE"."Info"."Path" xml1 -o - BuildManifest.plist | grep '<string>' |cut -d\> -f2 |cut -d\< -f1 | head -1)" "$ipswurl"
@@ -62,7 +65,11 @@ key=$(cat $fwkeyjson | jq -r 'first(.. | objects | select(has("key")) | .key)' |
 iv=${iv:2}
 key=${key:2}
 ivkey=$iv$key
-"$oscheck"/img4 -i work/"$(awk "/""${replace}""/{x=1}x&&/iBEC[.]/{print;exit}" work/BuildManifest.plist | grep '<string>' |cut -d\> -f2 |cut -d\< -f1 | sed 's/Firmware[/]dfu[/]//')" -o work/iBoot.bin  -k $ivkey
+if [[ "$boardconfig" == n104ap ]]; then
+    "$oscheck"/img4 -i work/iBEC.n104.RELEASE.im4p -o work/iBoot.bin -k "$ivkey"
+else
+    "$oscheck"/img4 -i work/"$(awk "/""${replace}""/{x=1}x&&/iBEC[.]/{print;exit}" work/BuildManifest.plist | grep '<string>' |cut -d\> -f2 |cut -d\< -f1 | sed 's/Firmware[/]dfu[/]//')" -o work/iBoot.bin  -k "$ivkey"
+fi
 "$oscheck"/iBoot64patcher_cryptic work/iBoot.bin work/iBoot.prepatched
 "$oscheck"/kairos work/iBoot.prepatched work/iBoot.patched -b "-v debug=0x2014e rd=md0 wdt=-1"
 
@@ -77,7 +84,7 @@ mkdir work/sshtar
 $oscheck/gtar -x --no-overwrite-dir -f resources/ssh.tar.gz -C work/sshtar
 $oscheck/trustcache append work/trustcache.bin $(cat resources/sshtarlist.txt)
 filedir="$boardconfig-$version-$buildid"
-mkdir bootchain/$boardconfig-$version-$buildid
+mkdir -p bootchain/$boardconfig-$version-$buildid
 $oscheck/img4 -i work/DeviceTree.$boardconfig.im4p -o bootchain/$filedir/devicetree.img4 -T rdtr -M resources/IM4M_$cpid
 $oscheck/img4 -i work/trustcache.bin -o bootchain/$filedir/trustcache.img4 -A -T rtsc -M resources/IM4M_$cpid
 $oscheck/img4 -i work/ramdisk.dmg -o bootchain/$filedir/ramdisk.img4 -A -T rdsk -M resources/IM4M_$cpid

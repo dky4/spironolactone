@@ -1,9 +1,9 @@
 oscheck=$(uname)
 option=$1
 bootchain=$2
-BUILD=Spironolactone-9
+BUILD=Spironolactone-10.1
 BRANCH=$(git branch --show-current)
-echo "Welcome to Spironolactone v0.1.0 (Build: "$BUILD-$BRANCH")!"
+echo "Welcome to Spironolactone v0.1.1 (Build: "$BUILD-$BRANCH")!"
 
 if [ "$option" = boot ]; then
     if [ -n "$bootchain" ]; then
