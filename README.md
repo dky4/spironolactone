@@ -9,8 +9,7 @@ I will annunce updates over at https://x.com/_orangera1n and on the afformention
 
 # Important information
 1. This tool is in VERY early stages of development, meaning that various functionailites might not be implemented or are otherwise buggy.
-2. By using this tool, you will almost certainly wiping the device, back up any data beforehand.
-3. Only iOS 12.0-14.4.2 are supported for now due to iBoot patch issues for A12, and iOS 13.0-13.7 are supported for A13.
+2. Only iOS 12.0-14.4.2 are supported for now due to iBoot patch issues for A12, and iOS 13.0-13.7 are supported for A13.
 Do *not* ask for an ETA for new features or version support
 # Prerequsites
 1. A computer running macOS (Linux is not implemented yet, but is likely easy to implement, Windows is *very* unlikely to happen)
