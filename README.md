@@ -12,7 +12,7 @@ I will annunce updates over at https://x.com/_orangera1n and on the afformention
 2. Only iOS 12.0-14.4.2 are supported for now due to iBoot patch issues for A12, and iOS 13.0-13.7 are supported for A13.
 Do *not* ask for an ETA for new features or version support
 # Prerequsites
-1. A computer running macOS (Linux is not implemented yet, but is likely easy to implement, Windows is *very* unlikely to happen)
+1. A computer running macOS or Linux (Windows is *very* unlikely to happen)
 2. A usbliter8 compatible devices (A12, A13)
 - Note that A12X/Z is not implemented due to lack of offsets, and S4/S5 will likely not be implemented due to tooling reasons and lack of demand.
 - Note that A14+ is extremely unlikely to come in the future.
